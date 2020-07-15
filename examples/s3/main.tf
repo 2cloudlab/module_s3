@@ -11,7 +11,7 @@ module "website" {
   source                 = "../../modules/website"
   bucket_name            = "2cloudlab.example.com"
   acl                    = "public-read"
-  static_web_site_folder = "./"
+  static_web_site_folder = "test_website/"
 }
 
 output "website_instance" {
