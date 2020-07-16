@@ -22,4 +22,5 @@ variable "websites" {
 variable "static_web_site_folder" {
   description = ""
   type        = string
+  default     = ""
 }
