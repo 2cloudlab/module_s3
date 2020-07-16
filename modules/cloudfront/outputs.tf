@@ -1,3 +1,3 @@
-output "website_certification" {
-  value = aws_acm_certificate.cert
+output "distribution_location" {
+  value = aws_cloudfront_distribution.s3_distribution
 }
