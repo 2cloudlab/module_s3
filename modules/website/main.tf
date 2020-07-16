@@ -33,7 +33,7 @@ resource "aws_s3_bucket_object" "object" {
   for_each     = fileset(var.static_web_site_folder, "**")
   bucket       = var.bucket_name
   key          = each.value
-  content_type = local.content_type_map[format(".%s", lower(reverse(concat(["unknown"], compact(split(".", basename(each.value)))))[0]))]
+  content_type = lookup(local.content_type_map, format(".%s", lower(reverse(concat(["unknown"], compact(split(".", basename(each.value)))))[0])), "application/octet-stream")
   source       = "${var.static_web_site_folder}${each.value}"
   etag         = filemd5("${var.static_web_site_folder}${each.value}")
   # https://stackoverflow.com/questions/58275233/terraform-depends-on-with-modules
