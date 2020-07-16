@@ -30,3 +30,7 @@ module "cloudfront" {
 output "distribution_location" {
   value = module.cloudfront.distribution_location
 }
+
+output "aws_cloudfront_origin_access_identity" {
+  value = module.cloudfront.aws_cloudfront_origin_access_identity
+}

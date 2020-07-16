@@ -24,3 +24,9 @@ variable "static_web_site_folder" {
   type        = string
   default     = ""
 }
+
+variable "origin_access_identity_arn" {
+  description = ""
+  type        = string
+  default     = ""
+}

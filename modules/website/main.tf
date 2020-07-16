@@ -2,12 +2,8 @@ terraform {
   required_version = "= 0.12.19"
 }
 
-module "website" {
-  source      = "../../modules/s3"
-  bucket_name = var.bucket_name
-  acl         = var.acl
-  # check out here: https://learn.hashicorp.com/terraform/aws/iam-policy for policy expressions
-  policy   = <<POLICY
+locals {
+  init_policy     = <<POLICY
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -25,6 +21,34 @@ module "website" {
     ]
 }
 POLICY
+  restrict_policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CloudfrontReadGetObject",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS" : "${var.origin_access_identity_arn}"
+            },
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${var.bucket_name}/*"
+            ]
+        }
+    ]
+}
+POLICY
+}
+
+module "website" {
+  source      = "../../modules/s3"
+  bucket_name = var.bucket_name
+  acl         = var.acl
+  # check out here: https://learn.hashicorp.com/terraform/aws/iam-policy for policy expressions
+  policy   = var.cloudfront_arn == "" ? local.init_policy : local.restrict_policy
   websites = var.websites
 }
 
