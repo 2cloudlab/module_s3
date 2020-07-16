@@ -30,7 +30,7 @@ POLICY
 
 resource "aws_s3_bucket_object" "object" {
   # https://stackoverflow.com/questions/57456167/uploading-multiple-files-in-aws-s3-from-terraform
-  for_each     = fileset(var.static_web_site_folder, "**")
+  for_each     = var.static_web_site_folder != "" ? fileset(var.static_web_site_folder, "**") : []
   bucket       = var.bucket_name
   key          = each.value
   content_type = lookup(local.content_type_map, format(".%s", lower(reverse(concat(["unknown"], compact(split(".", basename(each.value)))))[0])), "application/octet-stream")
