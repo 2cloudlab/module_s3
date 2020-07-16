@@ -14,16 +14,7 @@ variable "websites" {
   default = [{
     index_document           = "index.html"
     error_document           = "error.html"
-    routing_rules            = <<EOF
-    [{
-    "Condition": {
-        "KeyPrefixEquals": "docs/"
-    },
-    "Redirect": {
-        "ReplaceKeyPrefixWith": "documents/"
-    }
-    }]
-    EOF
+    routing_rules            = null
     redirect_all_requests_to = null
   }]
 }
