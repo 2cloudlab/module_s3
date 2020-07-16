@@ -40,6 +40,7 @@ resource "aws_s3_bucket_object" "object" {
   depends_on = [module.website]
 }
 
+# check out the whole content type list from https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 locals {
   content_type_map = {
     ".txt"     = "text/plain; charset=utf-8"
