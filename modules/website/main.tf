@@ -48,7 +48,7 @@ module "website" {
   bucket_name = var.bucket_name
   acl         = var.acl
   # check out here: https://learn.hashicorp.com/terraform/aws/iam-policy for policy expressions
-  policy   = var.cloudfront_arn == "" ? local.init_policy : local.restrict_policy
+  policy   = var.origin_access_identity_arn == "" ? local.init_policy : local.restrict_policy
   websites = var.websites
 }
 
