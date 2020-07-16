@@ -12,7 +12,7 @@ module "website" {
   bucket_name            = "2cloudlab.example.com"
   acl                    = "public-read"
   static_web_site_folder = "test_website/"
-  # Uncomment below after created cloudfront, and specific the generated origin_access_identity arn
+  # In order to restrict users directly access to your static website by s3's website_endpoint, uncomment below command after created cloudfront, then specific the generated origin_access_identity arn and rerun this code
   # origin_access_identity_arn = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E3PK5Q3TDLDPJC"
 }
 
