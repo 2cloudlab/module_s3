@@ -9,7 +9,7 @@ provider "aws" {
 
 resource "aws_sns_topic" "topic" {
   for_each = {
-    for i in var.topics:
+    for i in var.topics :
     i.topic_name => i
   }
   name = each.key
@@ -48,31 +48,4 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     }
   }
   depends_on = [aws_sns_topic.topic]
-}
-
-variable "bucket_name" {
-  description = ""
-  type        = string
-  default = "2cloudlab-bucket-name-in-the-field"
-}
-
-variable "topics" {
-  description = ""
-  type        = list(object({
-    topic_name = string
-    events = list(string)
-    filter_suffix = string
-  }))
-  default = [
-    {
-      topic_name = "s3-event-notification-topic"
-      events = ["s3:ObjectCreated:*"]
-      filter_suffix = ".log"
-    },
-    {
-      topic_name = "s3-event-notification-topic-1"
-      events = ["s3:ObjectCreated:*"]
-      filter_suffix = ".jpeg"
-    }
-  ]
 }
