@@ -35,6 +35,9 @@ resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
 }
 
+# S3 notification have the following concerns:
+# 1. Each event will be delivered at least one, meaning that duplicate events may occur.
+# 2. Each event will be delivered in seconds, and can sometimes take a minute or longer
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = aws_s3_bucket.bucket.id
 
